@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #E0B0FF, #FFA07A); /* Purple to Coral Gradient */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column; /* Added to allow footer to stay at the bottom */
+        }
+
+        .container {
+            width: 350px;
+            padding: 20px;
+            background-color: transparent; /* Make container transparent */
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .language {
+            text-align: right;
+            color: white;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        select {
+            padding: 5px;
+            background-color: transparent;
+            color: white;
+            border: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .huge-circle {
+            background-color: #FF69B4; /* Hot Pink */
+            color: white;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 5px;
+            position: relative;
+        }
+
+        .input-group i {
+            margin-left: 10px;
+            margin-right: 10px;
+            color: #777; /* Gray icon color */
+        }
+
+        .input-group input {
+            border: none;
+            padding: 10px;
+            flex-grow: 1;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .input-group input::placeholder {
+            color: #999; /* Light gray placeholder color */
+        }
+
+        .password-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+            cursor: pointer;
+        }
+
+        .button-primary {
+            background-color: #DC143C; /* Crimson */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 18px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .button-secondary {
+            background-color: transparent;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .button-secondary a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .success-message {
+            margin-top: 20px;
+            color: green;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            margin-top: 20px;
+            padding: 10px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <!-- Language Selection Dropdown -->
+        <div class="language">
+            <label for="language-select">Language: </label>
+            <select id="language-select" onchange="toggleLanguage()">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+            </select>
+        </div>
+
+        <div class="huge-circle">Student</div>
+
+        <div class="input-group">
+            <i class="fas fa-phone"></i>
+            <input type="tel" placeholder="Please enter your phone number" id="phoneNumber">
+        </div>
+
+        <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Please set your login password" id="loginPassword">
+            <i class="far fa-eye password-icon" onclick="togglePasswordVisibility('loginPassword')"></i>
+        </div>
+
+        <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Please confirm your password" id="confirmPassword">
+            <i class="far fa-eye password-icon" onclick="togglePasswordVisibility('confirmPassword')"></i>
+        </div>
+
+        <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Please set a payment password" id="paymentPassword">
+            <i class="far fa-eye password-icon" onclick="togglePasswordVisibility('paymentPassword')"></i>
+        </div>
+
+        <button class="button-primary" onclick="showSuccessMessage()">Register now</button>
+        
+        <!-- Changed button with hyperlink -->
+        <button class="button-secondary">
+            <a href="login.html">Have an account? Go log in now</a>
+        </button>
+
+        <!-- Success message -->
+        <div id="successMessage" class="success-message" style="display: none;">You have registered successfully!</div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        ‎© copyright 2025. All rights reserved | Design & Developed by Deepak Kumar (MCA).
+    </footer>
+
+    <script>
+        // Password Visibility Toggle Function
+        function togglePasswordVisibility(fieldId) {
+            const inputField = document.getElementById(fieldId);
+            const icon = inputField.nextElementSibling;
+
+            if (inputField.type === 'password') {
+                inputField.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                inputField.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Language Toggle Function
+        function toggleLanguage() {
+            const language = document.getElementById('language-select').value;
+            const placeholders = {
+                en: {
+                    phoneNumber: "Please enter your phone number",
+                    loginPassword: "Please set your login password",
+                    confirmPassword: "Please confirm your password",
+                    paymentPassword: "Please set a payment password",
+                    register: "Register now",
+                    loginLink: "Have an account? Go log in now"
+                },
+                hi: {
+                    phoneNumber: "कृपया अपना फोन नंबर दर्ज करें",
+                    loginPassword: "कृपया अपना लॉगिन पासवर्ड सेट करें",
+                    confirmPassword: "कृपया अपना पासवर्ड पुष्टि करें",
+                    paymentPassword: "कृपया एक भुगतान पासवर्ड सेट करें",
+                    register: "अब रजिस्टर करें",
+                    loginLink: "क्या आपके पास खाता है? लॉगिन करें"
+                }
+            };
+
+            // Update placeholders and button text
+            const selectedLang = placeholders[language];
+            document.getElementById('phoneNumber').placeholder = selectedLang.phoneNumber;
+            document.getElementById('loginPassword').placeholder = selectedLang.loginPassword;
+            document.getElementById('confirmPassword').placeholder = selectedLang.confirmPassword;
+            document.getElementById('paymentPassword').placeholder = selectedLang.paymentPassword;
+            document.querySelector('.button-primary').textContent = selectedLang.register;
+            document.querySelector('.button-secondary a').textContent = selectedLang.loginLink;
+        }
+
+        // Function to show success message after registration
+        function showSuccessMessage() {
+            const successMessage = document.getElementById("successMessage");
+            successMessage.style.display = "block";
+        }
+    </script>
+</body>
+</html>

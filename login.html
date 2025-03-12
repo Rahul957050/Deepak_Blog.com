@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: sans-serif;
+            background: linear-gradient(to bottom, #d18ce0, #a9f5f2); /* Gradient background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column; /* Ensure footer appears at the bottom */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative; /* For absolute positioning of elements */
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background-color: #ff0080; /* Pink circle */
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .input-field {
+            width: calc(100% - 22px); /* Adjust for padding and border */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Include padding and border in element's total width and height */
+        }
+
+        .input-field::placeholder {
+            color: #aaa;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .login-button {
+            background-color: #ff0000; /* Red button */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .register-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .language-link {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #333;
+            text-decoration: none; /* Remove underline from link */
+        }
+
+        .whatsapp-icon-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline from link */
+        }
+
+        .whatsapp-icon-link img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .headphone-icon-link {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #333;
+            text-decoration: none; /* Remove underline from link */
+        }
+
+        .eye-icon {
+            position: absolute;
+            top: 50%; /* Center vertically */
+            right: 10px;
+            transform: translateY(-50%); /* Adjust for perfect vertical centering */
+            cursor: pointer;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 16px;
+            margin-top: 10px;
+            display: none; /* Initially hidden */
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            font-size: 14px;
+            position: relative;
+        }
+
+        footer a {
+            color: #ff00ff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Contact Support & Language links -->
+  <a href="#" class="headphone-icon-link" title="Contact Support" aria-label="Contact Support">&#127908;</a>
+  <a href="#" class="language-link" title="Change Language" aria-label="Change Language">Language</a>
+
+  <div class="logo">Student login</div>
+  
+  <!-- Phone Number input -->
+  <input type="tel" class="input-field" placeholder="+91 Please enter your phone number" aria-label="Enter phone number">
+
+  <!-- Login Password input with eye icon for toggling visibility -->
+  <div style="position: relative;">
+    <input type="password" class="input-field" placeholder="Please enter login password" id="password" aria-label="Enter login password">
+    <div class="eye-icon" onclick="togglePasswordVisibility('password')" aria-label="Toggle password visibility">&#128065;</div>
+  </div>
+
+  <!-- Remember me checkbox -->
+  <div class="remember-me">
+    <input type="checkbox" id="remember" aria-label="Remember username/password">
+    <label for="remember">Remember username/password</label>
+  </div>
+
+  <!-- Login button -->
+  <button class="login-button" onclick="handleLogin()">Log in now</button>
+  <p>No account? <a href="register.html" class="register-link" aria-label="Go to Register page">Register</a></p>
+
+  <!-- Error message -->
+  <div id="error-message" class="error-message">Something went wrong. Please try again!</div>
+</div>
+
+<!-- WhatsApp icon as a link -->
+<a href="https://chat.whatsapp.com/ERqn4z0KrdN5gGwzd0HJbA" class="whatsapp-icon-link" title="Chat with us on WhatsApp" aria-label="Chat with us on WhatsApp">
+  <img src="WhatsApp_icon.png" alt="WhatsApp Logo">
+</a>
+
+<!-- Footer -->
+<footer>
+  <p>‎© copyright 2025. All rights reserved | Design & Developed by <a href="https://www.linkedin.com/in/deepak-kumar-mca/" target="_blank">Deepak Kumar (MCA)</a></p>
+</footer>
+
+<script>
+// Function to toggle password visibility
+function togglePasswordVisibility(fieldId) {
+  var passwordInput = document.getElementById(fieldId);
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+  } else {
+    passwordInput.type = "password";
+  }
+}
+
+// Function to handle login button click
+function handleLogin() {
+  // Show error message when login fails (for demonstration purposes)
+  var errorMessage = document.getElementById('error-message');
+  errorMessage.style.display = "block";
+}
+</script>
+
+</body>
+</html>
